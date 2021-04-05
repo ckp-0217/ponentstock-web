@@ -1,7 +1,7 @@
 <template>
-<div>
-    <TradingviewCard></TradingviewCard>
-</div>
+  <div>
+    <TradingviewCard />
+  </div>
 </template>
 
 <script lang="ts">
