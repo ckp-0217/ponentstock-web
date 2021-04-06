@@ -10,12 +10,6 @@
         <ECharts ref="chart2" :option="k1" />
         <hr />
     </div>
-
-    <div class="chart3">
-     <p>tradingview K线图</p>
-        <div id="chart_container" class="f-fill"></div>
-    </div>
-     
 </div>
 </template>
 
@@ -45,8 +39,6 @@ import {
 import {
     k1
 } from "@/api/mock/kline-k1.js"
- 
-
 
 export default defineComponent({
     components: {
@@ -62,15 +54,13 @@ export default defineComponent({
         };
     },
     methods: {
-         
+
     },
-     
+
     setup() {
-         onMounted(() => {
-            //需要获取到element,所以是onMounted的Hook
-            console.log('qqqqqqqqq')
-             
-        }); 
+        /*  onMounted(() => {
+
+        });  */
         // onUnmounted(() => {
         //     dispose('basic-k-line')
         // });
@@ -82,18 +72,13 @@ export default defineComponent({
 .chart1 {
     width: 600px;
     height: 500px;
-    margin:50px 0;
+    margin: 50px 0;
 }
 
 .chart2 {
     width: 600px;
     height: 500px;
-    margin:50px 0;
+    margin: 50px 0;
 }
 
-.chart3 {
-    width: 600px;
-    height: 500px;
-    margin:50px 0;
-}
 </style>
