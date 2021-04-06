@@ -10,11 +10,12 @@
         <ECharts ref="chart2" :option="k1" />
         <hr />
     </div>
+
     <div class="chart3">
-        <p>KLineChart k线图</p>
-        <div id="basic-k-line" class="k-line-chart"></div>
-        <hr />
+     <p>tradingview K线图</p>
+        <div id="chart_container" class="f-fill"></div>
     </div>
+     
 </div>
 </template>
 
@@ -26,29 +27,26 @@ import {
     ref,
     reactive,
     h
-} from "vue";
-import * as echarts from "echarts";
+} from "vue"
+import * as echarts from "echarts"
 import {
     createComponent
-} from "echarts-for-vue";
+} from "echarts-for-vue"
 import {
     BarChart,
     // 系列类型的定义后缀都为 SeriesOption
     BarSeriesOption,
     LineChart,
     LineSeriesOption,
-} from "echarts/charts";
+} from "echarts/charts"
 import {
     cntbData
-} from "../api/mock/cntb";
+} from "@/api/mock/cntb.js"
 import {
     k1
-} from "../api/mock/kline-k1";
-import {
-    dispose,
-    init
-} from "klinecharts";
-import generatedKLineDataList from '@/api/mock/generatedKLineDataList'
+} from "@/api/mock/kline-k1.js"
+ 
+
 
 export default defineComponent({
     components: {
@@ -63,20 +61,19 @@ export default defineComponent({
             k1: k1,
         };
     },
-    methods: {},
-    mounted: function () {
-        const kLineChart = init('basic-k-line')
-        kLineChart?.applyNewData(generatedKLineDataList())
+    methods: {
+         
     },
+     
     setup() {
-        /* onMounted(() => {
+         onMounted(() => {
             //需要获取到element,所以是onMounted的Hook
-            const kLineChart = init("basic-k-line")
-            kLineChart ? .applyNewData(generatedKLineDataList())
-        }); */
-        onUnmounted(() => {
-            dispose('basic-k-line')
-        });
+            console.log('qqqqqqqqq')
+             
+        }); 
+        // onUnmounted(() => {
+        //     dispose('basic-k-line')
+        // });
     },
 });
 </script>
@@ -85,15 +82,18 @@ export default defineComponent({
 .chart1 {
     width: 600px;
     height: 500px;
+    margin:50px 0;
 }
 
 .chart2 {
     width: 600px;
     height: 500px;
+    margin:50px 0;
 }
 
 .chart3 {
     width: 600px;
     height: 500px;
+    margin:50px 0;
 }
 </style>
