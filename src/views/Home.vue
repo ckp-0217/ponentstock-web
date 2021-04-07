@@ -10,7 +10,7 @@ import {
     onMounted
 } from 'vue'
 
-import TradingviewCard from '@/components/TradingviewCard.vue';
+import TradingviewCard from '@/components/tradingview/TradingviewCard.vue';
 import dayjs from 'dayjs'
 
 export default defineComponent({

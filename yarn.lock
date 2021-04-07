@@ -5564,11 +5564,6 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.npm.taobao.org/kind-of/download/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha1-B8BQNKbDSfoG4k+jWqdttFgM5N0=
 
-klinecharts@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/klinecharts/-/klinecharts-7.0.1.tgz#36233c362eb0460c05791056dcf5a0da38719123"
-  integrity sha512-CtTUI82kQHyPv/6wQbb4Ry7N1ofzdZvnOPV6t/eDIu4GxrrUvBCTXJXByMHop3r7Gj/c3yqY4NXbotzhcoqBlA==
-
 launch-editor-middleware@^2.2.1:
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/launch-editor-middleware/download/launch-editor-middleware-2.2.1.tgz#e14b07e6c7154b0a4b86a0fd345784e45804c157"
