@@ -12,3 +12,5 @@ import '@/plugins/echart'
 import "@/theme/theme.less"
 
 app.mount('#app')
+
+// app.config.globalProperties.test='test'
