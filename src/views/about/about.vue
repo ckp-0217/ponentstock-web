@@ -13,26 +13,13 @@ import {
   getCurrentInstance,
 } from "vue";
 
-function name(str) {
-  let userID = ref(str);
-  return {
-    userID,
-  };
-}
+import { name } from "./about";
+
 export default defineComponent({
-  beforeCreate() {
-    console.log("beforeCreate");
-  },
-  created() {
-    console.log("created");
-  },
-  mounted() {
-    console.log("mounted");
-  },
   setup() {
     const userID = "111";
     return {
-      ...name(userID)
+      ...name(userID),
     };
 
     // onMounted(() => {
@@ -41,3 +28,7 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="less">
+@import "./about.less";
+</style>
