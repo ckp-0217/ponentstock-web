@@ -5,13 +5,34 @@ import {
     reactive,
     watchEffect,
     getCurrentInstance,
+    computed,
 } from "vue";
 
-
-export function name(str) {
+function name(str) {
     const userID = ref(str);
-    userID.value += '3333333';
     return {
         userID,
     };
 }
+
+export default defineComponent({
+    setup() {
+        const age = ref(5);
+
+        setTimeout(() => {
+            age.value++;
+        }, 3000);
+
+        watchEffect(() => {
+            console.log("watchEffect----start");
+            console.log(age.value);
+        });
+
+        return {
+            age,
+            // ...name(age),
+        };
+    },
+});
+
+
