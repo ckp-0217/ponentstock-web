@@ -13,11 +13,11 @@ export const intervalMap = {
 /** trading-view 的時間區間 */
 export const supported_resolutions = [
   '1',
-  '5',
-  '15',
-  '30',
-  '60',
-  '240',
+  // '5',
+  // '15',
+  // '30',
+  // '60',
+  // '240',
   'D',
   'W',
   'M',
