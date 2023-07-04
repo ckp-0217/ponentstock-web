@@ -25,6 +25,8 @@ export const getSymbols = async () => {
 }
 /** 取得kline历史纪录 */
 export const getKlineHistory = async (obj) => {
+  console.log(obj)
+
   const { data } = await req.get(`/market/history/kline?${qs.stringify(obj)}`)
   if (data.status !== 'ok' && !data.data.length) return [null]
   console.log(data.data)
