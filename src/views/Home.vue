@@ -25,7 +25,7 @@ import DemoEchart from "@/components/DemoEchart/DemoEchart.vue";
 import KLineWidget from "@/components/DemoTradingview/KLineWidget.vue";
 
 import { ws } from "@/api/socket";
-import { getSymbols } from "@/api/stock";
+import { getSymbols } from "@/api/stock";  
 // import { getSymbols } from "@/api/huobi";
 
 export default defineComponent({

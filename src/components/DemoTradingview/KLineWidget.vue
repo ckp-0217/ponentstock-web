@@ -6,7 +6,7 @@
 <script>
 import { DataFeed, widget as TvWidget } from "tradingview-api";
 import { onMounted, ref, toRefs } from "vue";
-import { getKlineHistory } from "@/api/huobi";
+import { getKlineHistory } from "@/api/stock";
 import { intervalMap, supported_resolutions } from "@/model/timer";
 import { ws } from "@/api/socket";
 export default {
@@ -22,33 +22,33 @@ export default {
   },
   setup(props) {
     const widget = ref(null);
-    const interval = ref("5min");
+    const interval = ref("60min");
     const { symbol, symbolInfo } = toRefs(props);
     /** 订阅websocket */
-    const subscribeKLine = () => {
-      ws.subscribe(
-        `market.${symbol.value.toLocaleLowerCase()}.kline.${interval.value}`,
-        {
-          id: "react-tv",
-          sub: `market.${symbol.value.toLocaleLowerCase()}.kline.${interval.value}`,
-        },
-        (data) => {
-          const tick = data.tick;
-          datafeed.value.updateKLine({
-            time: tick.id * 1000,
-            open: tick.open,
-            high: tick.high,
-            low: tick.low,
-            close: tick.close,
-            volume: tick.vol,
-          });
-        }
-      );
-    };
-    /** websocket取消订阅 */
-    const unsubscribeKLine = () => {
-      ws.unsubscribe(`market.${symbol.value}.kline.${interval.value}`);
-    };
+    // const subscribeKLine = () => {
+    //   ws.subscribe(
+    //     `market.${symbol.value.toLocaleLowerCase()}.kline.${interval.value}`,
+    //     {
+    //       id: "react-tv",
+    //       sub: `market.${symbol.value.toLocaleLowerCase()}.kline.${interval.value}`,
+    //     },
+    //     (data) => {
+    //       const tick = data.tick;
+    //       datafeed.value.updateKLine({
+    //         time: tick.id * 1000,
+    //         open: tick.open,
+    //         high: tick.high,
+    //         low: tick.low,
+    //         close: tick.close,
+    //         volume: tick.vol,
+    //       });
+    //     }
+    //   );
+    // };
+    // /** websocket取消订阅 */
+    // const unsubscribeKLine = () => {
+    //   ws.unsubscribe(`market.${symbol.value}.kline.${interval.value}`);
+    // };
     /** 取得数据订阅数据 */
     const getBars = async (params) => {
       try {
@@ -64,7 +64,7 @@ export default {
           };
         }
         if (params.resolution !== intervalMap[interval.value]) {
-          unsubscribeKLine();
+          // unsubscribeKLine();
           for (let key in intervalMap) {
             if (intervalMap[key] === params.resolution) {
               interval.value = key;
@@ -84,7 +84,7 @@ export default {
           params.firstDataRequest &&
           list
         ) {
-          subscribeKLine();
+          // subscribeKLine();
         }
 
         if (!list) {
@@ -112,7 +112,7 @@ export default {
           description: symbol.value,
           type: symbol.value,
           session: "24x7",
-          exchange: "HuoBi",
+          exchange: "Chen",
           listed_exchange: symbol.value,
           timezone: "Asia/Shanghai",
           format: "price",
@@ -147,12 +147,12 @@ export default {
         datafeed: datafeed.value,
         library_path: "/charting_library/",
         locale: "zh",
-        theme: "Dark",
+        theme: "light",
         timezone: "Asia/Shanghai",
       });
     };
     const setSymbol = (newSymbol) => {
-      unsubscribeKLine();
+      // unsubscribeKLine();
       symbol.value = newSymbol;
       widget.value.setSymbol(
         newSymbol.toLocaleUpperCase(),
