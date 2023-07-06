@@ -1,6 +1,6 @@
 // import axios from 'axios'
 import qs from 'qs'
-import req from './stockServerRpc'
+import req from './axios'
 
 /** 取得币种 */
 export const getSymbols = async () => {
