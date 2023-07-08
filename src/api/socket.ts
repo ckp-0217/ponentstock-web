@@ -16,7 +16,7 @@ class TvWebSocket {
     this.ws.onopen = this.onopen.bind(this)
     this.ws.onclose = this.onclose.bind(this)
     this.ws.onerror = this.onerror.bind(this)
-    this.ws.onmessage = this.onmessage.bind(this)
+    // this.ws.onmessage = this.onmessage.bind(this)
     console.log(' >> WebSocket init :', this.url)
   }
 
@@ -58,25 +58,25 @@ class TvWebSocket {
     console.log(' >> Websocket Error...', event)
   }
 
-  onmessage(event) {
-    if (!event.data) {
-      return
-    }
-    const text = pako.inflate(event.data, {
-      to: 'string',
-    })
-    const data = JSON.parse(text)
-    // console.log("---inflate----", data);
-    if (data && data.ping) {
-      this.ws?.send(
-        JSON.stringify({
-          pong: Date.now(),
-        })
-      )
-      return
-    }
-    this.onBroadcast(data)
-  }
+  // onmessage(event) {
+  //   if (!event.data) {
+  //     return
+  //   }
+  //   const text = pako.inflate(event.data, {
+  //     to: 'string',
+  //   })
+  //   const data = JSON.parse(text)
+  //   // console.log("---inflate----", data);
+  //   if (data && data.ping) {
+  //     this.ws?.send(
+  //       JSON.stringify({
+  //         pong: Date.now(),
+  //       })
+  //     )
+  //     return
+  //   }
+  //   this.onBroadcast(data)
+  // }
 
   /**
    * 广播通知

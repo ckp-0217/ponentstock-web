@@ -1,13 +1,10 @@
 <template>
   <div class="kline">
-    <div id="tv_chart_container" style="    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0 ;width: 85%;" />
+    <div id="tv_chart_container" />
   </div>
 </template>
 <script>
-import { DataFeed, widget as TvWidget, } from "tradingview-api";
+import { DataFeed, widget as TvWidget } from "tradingview-api";
 import { onMounted, ref, toRefs } from "vue";
 import { getKlineHistory } from "@/api/stock";
 import { intervalMap, supported_resolutions } from "@/model/timer";
@@ -142,7 +139,6 @@ export default {
     );
     /** 初始化trading-view */
     const initTradingView = () => {
-
       const tv = new TvWidget({
         fullscreen: true,
         symbol: symbol.value,
@@ -154,15 +150,14 @@ export default {
         theme: "light",
         timezone: "Asia/Shanghai",
       });
-      tv.onChartReady(function () {
+      tv.onChartReady(function() {
         tv.chart().createStudy("MACD");
         tv.chart().createStudy("Stochastic RSI");
         tv.chart().createStudy("Average Directional Index");
         tv.chart().createStudy("Moving Average", false, false, 5);
         tv.chart().createStudy("Moving Average", false, false, 10);
         tv.chart().createStudy("Moving Average", false, false, 20);
-        widget.value = tv
-
+        widget.value = tv;
       });
     };
     const setSymbol = (newSymbol) => {
@@ -180,12 +175,20 @@ export default {
       initTradingView();
     });
 
-    console.log()
+    console.log();
     return {
       widget,
       setSymbol,
     };
   },
 };
-
 </script>
+<style>
+#tv_chart_container {
+  position: fixed;
+  top: 0;
+  /* bottom: 0; */
+  left: 0;
+  width: 80%;
+}
+</style>
