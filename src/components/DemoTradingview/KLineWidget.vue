@@ -193,6 +193,6 @@ export default {
   top: 0;
   /* bottom: 0; */
   left: 0;
-  width: 70%;
+  width: 75%;
 }
 </style>

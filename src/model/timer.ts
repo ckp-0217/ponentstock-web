@@ -1,6 +1,6 @@
 // 1min, 5min, 15min, 30min, 60min, 4hour, 1day, 1mon, 1week, 1year
 export const intervalMap = {
-  '1min': '1',
+  // '1min': '1',
   // '5min': '5',
   // '15min': '15',
   // '30min': '30',
@@ -12,7 +12,7 @@ export const intervalMap = {
 }
 /** trading-view 的時間區間 */
 export const supported_resolutions = [
-  '1',
+  // '1',
   // '5',
   // '15',
   // '30',

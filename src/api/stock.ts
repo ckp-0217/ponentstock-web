@@ -63,3 +63,24 @@ export const getKlineHistory = async (obj) => {
     return [null];
   }
 };
+type SymbolType = {
+  groupName: string;
+  symbols: {
+    symbol: string;
+    name: string;
+    pair: string;
+  }[]
+
+};
+export const getSymbolTypes = async () => {
+  const data = [
+    { name: "雪球1", data: [{ "symbol": "sz000001", "name": "平安银行" }, { "symbol": "sh600000", "name": "浦发银行" }, { "symbol": "sz300001", "name": "特锐德" }] },
+    { name: "雪球2", data: [{ "symbol": "sz000001", "name": "平安银行" }, { "symbol": "sh600000", "name": "浦发银行" }, { "symbol": "sz300001", "name": "特锐德" }] },
+    { name: "雪球3", data: [{ "symbol": "sz000001", "name": "平安银行" }, { "symbol": "sh600000", "name": "浦发银行" }, { "symbol": "sz300001", "name": "特锐德" }] }
+  ];
+
+  // const symbolTypesList: SymbolType[] = [];
+
+
+  return { data };
+}
