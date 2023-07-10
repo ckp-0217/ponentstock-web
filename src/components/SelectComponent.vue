@@ -84,7 +84,7 @@ export default defineComponent({
 }
 
 .select-wrapper {
-  width: 20%;
+  width: 30%;
   margin-left: auto;
   position: fixed;
   right: 0;
@@ -98,7 +98,7 @@ export default defineComponent({
 }
 
 .option-list-container {
-  width: 20%;
+  width: 30%;
   position: fixed;
   margin-left: auto;
   right: 0;

@@ -158,6 +158,9 @@ export default {
         tv.chart().createStudy("Moving Average", false, false, 10);
         tv.chart().createStudy("Moving Average", false, false, 20);
         tv.chart().createStudy("Bollinger Bands");
+        tv.applyOverrides({ 'timeScale.rightOffset': '2' });
+        console.log(tv)
+        console.log('okkkkkkkkk')
         widget.value = tv;
       });
     };
@@ -190,6 +193,6 @@ export default {
   top: 0;
   /* bottom: 0; */
   left: 0;
-  width: 80%;
+  width: 70%;
 }
 </style>
