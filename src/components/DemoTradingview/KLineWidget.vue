@@ -157,6 +157,7 @@ export default {
         tv.chart().createStudy("Moving Average", false, false, 5);
         tv.chart().createStudy("Moving Average", false, false, 10);
         tv.chart().createStudy("Moving Average", false, false, 20);
+        tv.chart().createStudy("Bollinger Bands");
         widget.value = tv;
       });
     };

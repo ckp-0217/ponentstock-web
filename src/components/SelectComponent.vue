@@ -1,23 +1,43 @@
 <template>
   <div class="select-container">
-    <el-select v-model="internalValue" filterable @change="handleChange">
-      <el-option
-        v-for="item in options"
-        :key="item.symbol"
-        :label="item.pair"
-        :value="item.symbol"
-      />
-    </el-select>
-    <ul class="option-list">
-      <li v-for="item in options" :key="item.symbol" @click="handleOptionClick(item.symbol)">
-        {{ item.pair }}
-      </li>
-    </ul>
+    <div class="select-wrapper">
+      <el-select v-model="internalValue" filterable @change="handleChange">
+        <el-option
+          v-for="item in options"
+          :key="item.symbol"
+          :label="item.pair"
+          :value="item.symbol"
+        />
+      </el-select>
+    </div>
+    <div class="option-list-container">
+      <table class="option-list">
+        <thead>
+          <tr>
+            <th>代码</th>
+            <th>名字</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="item in options"
+            :key="item.symbol"
+            :class="{ 'selected': internalValue === item.symbol }" 
+            @click="handleOptionClick(item.symbol)"
+          >
+            <td>{{ item.symbol }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ "0.00"}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "SelectComponent",
@@ -63,34 +83,49 @@ export default defineComponent({
   justify-content: flex-end;
 }
 
-.select-container .el-select {
-  position: fixed;
-  top: 0;
-  right: 0;
+.select-wrapper {
   width: 20%;
+  margin-left: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.select-wrapper .el-select {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .option-list-container {
-  /* position: absolute; */
-  /* top: 100%; */
+  width: 20%;
+  position: fixed;
+  margin-left: auto;
   right: 0;
-  max-height: 200px; /* 根据需要设置最大高度 */
-  overflow-y: auto;
-  background-color: #f5f5f5;
+  top: 5%;
+  max-height: 95%;
+  overflow-y: auto; /* 显示滚动条 */
 }
 
 .option-list {
+  width: 100%;
   padding: 0;
-  /* margin: 0; */
   list-style: none;
+  right: 0;
+  /* top: 4%; */
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
 }
 
-.option-list li {
-  padding: 5px;
+.option-list tbody tr {
   cursor: pointer;
 }
 
-.option-list li:hover {
+.option-list tbody tr:hover {
   background-color: #e0e0e0;
+}
+.option-list tbody tr.selected {
+  background-color: #007bff; /* 修改选中行的背景颜色 */
+  color: #fff; /* 修改选中行的文本颜色 */
 }
 </style>
