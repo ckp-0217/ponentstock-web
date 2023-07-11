@@ -1,11 +1,8 @@
 <template>
   <div>
     <el-main v-if="symbol">
-      <SelectComponent
-        :options="symbolList.value"
-        v-model="symbol"
-        @change="changeHandler"
-      />
+      <SelectComponent :options="symbolList.value" :listTypes="listTypes.value" :listValue="'全部'" v-model="symbol"
+        @change="changeHandler" />
       <KLineWidget :symbolInfo="symbolInfo" :symbol="symbol.toUpperCase()" ref="kLineRef" />
     </el-main>
   </div>
@@ -14,7 +11,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, reactive } from 'vue';
 import KLineWidget from '@/components/DemoTradingview/KLineWidget.vue';
-import { getSymbols } from '@/api/stock';
+import { getSymbols, getSymbolTypes } from '@/api/stock';
 import SelectComponent from '@/components/SelectComponent.vue';
 
 export default defineComponent({
@@ -28,12 +25,17 @@ export default defineComponent({
     const symbol = ref('');
     const symbolInfo = ref(null);
     const kLineRef = ref(null as any);
-
+    const listTypes = reactive({ value: [] as any });
     onMounted(async () => {
       const getSymbolsData = await getSymbols();
       symbolList.value = getSymbolsData.list;
       symbol.value = getSymbolsData.data;
       symbolInfo.value = getSymbolsData.list[0];
+      let response = await getSymbolTypes();
+      response.data.unshift({ 'typename': '全部', 'symbol': symbolList.value });
+      listTypes.value = response.data;
+      console.log("symbolList.value", symbolList.value)
+      console.log("listTypes.value", listTypes.value)
     });
 
     const changeHandler = (e) => {
@@ -47,6 +49,7 @@ export default defineComponent({
       symbolInfo,
       changeHandler,
       kLineRef,
+      listTypes
     };
   },
 });

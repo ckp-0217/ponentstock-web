@@ -1,21 +1,12 @@
 <template>
   <div class="select-container">
     <div class="select-wrapper">
-      <el-select v-model="listType" filterable @change="handleListTypeChange">
-        <el-option
-          v-for="type in listTypes"
-          :key="type"
-          :label="type"
-          :value="type"
-        />
+      <el-select class="select1" v-model="listType" filterable @change="handleListTypeChange">
+        <el-option v-for="symboltype in listTypes" :key="symboltype.typename" :label="symboltype.typename"
+          :value="symboltype.symbol" />
       </el-select>
-      <el-select v-model="internalValue" filterable @change="handleChange">
-        <el-option
-          v-for="item in options"
-          :key="item.symbol"
-          :label="item.pair"
-          :value="item.symbol"
-        />
+      <el-select class="select2" v-model="internalValue" filterable @change="handleChange">
+        <el-option v-for="item in options" :key="item.symbol" :label="item.pair" :value="item.symbol" />
       </el-select>
     </div>
     <div class="option-list-container">
@@ -28,15 +19,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="item in options"
-            :key="item.symbol"
-            :class="{ 'selected': internalValue === item.symbol }" 
-            @click="handleOptionClick(item.symbol)"
-          >
+          <tr v-for="item in selectedListTypeOptions" :key="item.symbol"
+            :class="{ 'selected': internalValue === item.symbol }" @click="handleOptionClick(item.symbol)">
             <td>{{ item.symbol }}</td>
             <td>{{ item.name }}</td>
-            <td>{{ "0.00"}}</td>
+            <td>{{ "0.00" }}</td>
           </tr>
         </tbody>
       </table>
@@ -58,10 +45,24 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    listTypes: {
+      type: Array,
+      required: true,
+    },
+    listValue: {
+      type: String,
+      required: true,
+    },
+  },
+  created() {
+    this.selectedListTypeOptions = this.options;
   },
   data() {
     return {
       internalValue: this.value,
+      listType: null,
+      selectedListTypeOptions: []
+
     };
   },
   watch: {
@@ -81,6 +82,11 @@ export default defineComponent({
       this.internalValue = value;
       this.$emit("change", value);
     },
+    handleListTypeChange(value) {
+      this.selectedListTypeOptions = value;
+      this.internalValue = value.length > 0 ? value[0].code : null;
+    },
+
   },
 });
 </script>
@@ -88,7 +94,8 @@ export default defineComponent({
 <style scoped>
 .select-container {
   display: flex;
-  align-items: center; /* Center align the select boxes vertically */
+  align-items: center;
+  /* Center align the select boxes vertically */
 
   justify-content: flex-end;
 }
@@ -99,16 +106,23 @@ export default defineComponent({
   position: fixed;
   right: 0;
   top: 0;
-  display: flex; /* Display the select boxes in a row */
-  align-items: center; /* Center align the items horizontally */
+  display: flex;
+  /* Display the select boxes in a row */
+  align-items: center;
+  /* Center align the items horizontally */
 }
 
 .select-wrapper .el-select {
-  width: 50%;
+  /* width: 30%; */
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
+.select1{
+  width: 35%
+}
+.select2{
+  width: 65%
+}
 .option-list-container {
   width: 25%;
   position: fixed;
@@ -116,7 +130,8 @@ export default defineComponent({
   right: 0;
   top: 5%;
   max-height: 95%;
-  overflow-y: auto; /* 显示滚动条 */
+  overflow-y: auto;
+  /* 显示滚动条 */
 }
 
 .option-list {
@@ -136,8 +151,11 @@ export default defineComponent({
 .option-list tbody tr:hover {
   background-color: #e0e0e0;
 }
+
 .option-list tbody tr.selected {
-  background-color: #007bff; /* 修改选中行的背景颜色 */
-  color: #fff; /* 修改选中行的文本颜色 */
+  background-color: #007bff;
+  /* 修改选中行的背景颜色 */
+  color: #fff;
+  /* 修改选中行的文本颜色 */
 }
 </style>

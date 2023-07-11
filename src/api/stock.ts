@@ -74,5 +74,16 @@ type SymbolType = {
 };
 export const getSymbolTypes = async () => {
   const { data } = await req.get(`/symbolTypes`);
+  console.log(data)
+
+  data.forEach((group) => {
+    group.symbol.forEach((item) => {
+      // console.log(item)
+      item.pair = item.symbol.toLocaleUpperCase() + ' ' + item.name.toLocaleUpperCase();
+    });
+  });
+  
+  console.log(data);
+  
   return { data };
 }
