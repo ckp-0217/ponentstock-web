@@ -128,7 +128,7 @@ export default defineComponent({
   position: fixed;
   margin-left: auto;
   right: 0;
-  top: 5%;
+  top: 40px;
   max-height: 95%;
   overflow-y: auto;
   /* 显示滚动条 */
