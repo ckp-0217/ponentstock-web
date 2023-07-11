@@ -73,14 +73,6 @@ type SymbolType = {
 
 };
 export const getSymbolTypes = async () => {
-  const data = [
-    { name: "雪球1", data: [{ "symbol": "sz000001", "name": "平安银行" }, { "symbol": "sh600000", "name": "浦发银行" }, { "symbol": "sz300001", "name": "特锐德" }] },
-    { name: "雪球2", data: [{ "symbol": "sz000001", "name": "平安银行" }, { "symbol": "sh600000", "name": "浦发银行" }, { "symbol": "sz300001", "name": "特锐德" }] },
-    { name: "雪球3", data: [{ "symbol": "sz000001", "name": "平安银行" }, { "symbol": "sh600000", "name": "浦发银行" }, { "symbol": "sz300001", "name": "特锐德" }] }
-  ];
-
-  // const symbolTypesList: SymbolType[] = [];
-
-
+  const { data } = await req.get(`/symbolTypes`);
   return { data };
 }

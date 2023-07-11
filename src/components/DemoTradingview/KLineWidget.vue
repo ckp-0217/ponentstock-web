@@ -112,9 +112,9 @@ export default {
           description: symbol.value,
           type: "stock",
           session: "24x7",
-          exchange: "Chen",
+          // exchange: "stock",
           listed_exchange: symbol.value,
-          timezone: "Asia/Shanghai",
+          // timezone: "Asia/Shanghai",
           format: "price",
           pricescale: Math.pow(10, symbolInfo.value["price-precision"]),
           minmov: 1,
@@ -148,7 +148,7 @@ export default {
         library_path: "/charting_library/",
         locale: "zh",
         theme: "light",
-        timezone: "Asia/Shanghai",
+        // timezone: "Asia/Shanghai",
       });
       tv.onChartReady(function() {
         tv.chart().createStudy("MACD");

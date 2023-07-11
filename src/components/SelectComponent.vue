@@ -1,6 +1,15 @@
 <template>
   <div class="select-container">
     <div class="select-wrapper">
+      <el-select v-model="listType" filterable @change="handleListTypeChange">
+        <el-option
+          v-for="type in listTypes"
+          :key="type"
+          :label="type"
+          :value="type"
+        />
+      </el-select>
+
       <el-select v-model="internalValue" filterable @change="handleChange">
         <el-option
           v-for="item in options"
@@ -37,7 +46,8 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref, watch, onMounted } from "vue";
+import { getSymbols, getSymbolTypes } from "@/api/stock";
 
 export default defineComponent({
   name: "SelectComponent",
@@ -51,18 +61,35 @@ export default defineComponent({
       required: true,
     },
   },
-  data() {
-    return {
-      internalValue: this.value,
+  setup(props) {
+    const internalValue = ref(props.value);
+    const listType = ref('全部');
+    const listTypes = ref([]);
+    
+    const handleListTypeChange = async (newType) => {
+      const { data } = await getSymbols(newType);
+      this.$emit('updateOptions', data.list);
     };
-  },
-  watch: {
-    value(newValue) {
-      this.internalValue = newValue;
-    },
-    internalValue(newValue) {
+
+    watch(() => props.value, (newValue) => {
+      internalValue.value = newValue;
+    });
+
+    watch(() => internalValue.value, (newValue) => {
       this.$emit("update:value", newValue);
-    },
+    });
+
+    onMounted(async () => {
+      listTypes.value = await getSymbolTypes();
+      await handleListTypeChange(listType.value);
+    });
+
+    return {
+      listTypes,
+      listType,
+      internalValue,
+      handleListTypeChange,
+    };
   },
   methods: {
     handleChange(newValue) {
@@ -76,6 +103,7 @@ export default defineComponent({
   },
 });
 </script>
+
 
 <style scoped>
 .select-container {
