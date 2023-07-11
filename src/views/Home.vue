@@ -2,8 +2,8 @@
   <div>
     <el-main v-if="symbol">
       <SelectComponent :options="symbolList.value" :listTypes="listTypes.value" :listValue="'全部'" v-model="symbol"
-        @change="changeHandler" />
-      <KLineWidget :symbolInfo="symbolInfo" :symbol="symbol.toUpperCase()" ref="kLineRef" />
+        @change="changeHandler" />      
+        <KLineWidget :symbolInfo="symbolInfo" :symbol="symbol.toUpperCase()" ref="kLineRef" />
     </el-main>
   </div>
 </template>
@@ -39,9 +39,15 @@ export default defineComponent({
     });
 
     const changeHandler = (e) => {
-      symbol.value = e;
-      kLineRef.value.setSymbol(e);
+      if (typeof e === "string") {
+        symbol.value = e;
+        console.log("eeeeeeeeeeeeeee", e)
+        kLineRef.value.setSymbol(e);
+      } else {
+        console.log("e is not a string, its type is", e);
+      }
     };
+
 
     return {
       symbol,

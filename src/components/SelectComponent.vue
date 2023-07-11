@@ -69,20 +69,23 @@ export default defineComponent({
     value(newValue) {
       this.internalValue = newValue;
     },
-    internalValue(newValue) {
-      this.$emit("update:value", newValue);
-    },
+    // internalValue(newValue) {
+    //   this.$emit("update:value", newValue);
+    // },
   },
   methods: {
     handleChange(newValue) {
       this.internalValue = newValue;
+      console.log("newValue",newValue)
       this.$emit("change", newValue);
     },
     handleOptionClick(value) {
       this.internalValue = value;
+      console.log(value)
       this.$emit("change", value);
     },
     handleListTypeChange(value) {
+      console.log(value)
       this.selectedListTypeOptions = value;
       this.internalValue = value.length > 0 ? value[0].code : null;
     },
