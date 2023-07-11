@@ -9,7 +9,6 @@
           :value="type"
         />
       </el-select>
-
       <el-select v-model="internalValue" filterable @change="handleChange">
         <el-option
           v-for="item in options"
@@ -46,8 +45,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, watch, onMounted } from "vue";
-import { getSymbols, getSymbolTypes } from "@/api/stock";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "SelectComponent",
@@ -61,35 +59,18 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
-    const internalValue = ref(props.value);
-    const listType = ref('全部');
-    const listTypes = ref([]);
-    
-    const handleListTypeChange = async (newType) => {
-      const { data } = await getSymbols(newType);
-      this.$emit('updateOptions', data.list);
-    };
-
-    watch(() => props.value, (newValue) => {
-      internalValue.value = newValue;
-    });
-
-    watch(() => internalValue.value, (newValue) => {
-      this.$emit("update:value", newValue);
-    });
-
-    onMounted(async () => {
-      listTypes.value = await getSymbolTypes();
-      await handleListTypeChange(listType.value);
-    });
-
+  data() {
     return {
-      listTypes,
-      listType,
-      internalValue,
-      handleListTypeChange,
+      internalValue: this.value,
     };
+  },
+  watch: {
+    value(newValue) {
+      this.internalValue = newValue;
+    },
+    internalValue(newValue) {
+      this.$emit("update:value", newValue);
+    },
   },
   methods: {
     handleChange(newValue) {
@@ -104,10 +85,11 @@ export default defineComponent({
 });
 </script>
 
-
 <style scoped>
 .select-container {
   display: flex;
+  align-items: center; /* Center align the select boxes vertically */
+
   justify-content: flex-end;
 }
 
@@ -117,10 +99,12 @@ export default defineComponent({
   position: fixed;
   right: 0;
   top: 0;
+  display: flex; /* Display the select boxes in a row */
+  align-items: center; /* Center align the items horizontally */
 }
 
 .select-wrapper .el-select {
-  width: 100%;
+  width: 50%;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
