@@ -151,13 +151,13 @@ export default {
         // timezone: "Asia/Shanghai",
       });
       tv.onChartReady(function() {
-        tv.chart().createStudy("MACD");
+        tv.chart().createStudy("MACD",false, false,[10,20,'close',7]);
         tv.chart().createStudy("Stochastic RSI");
-        tv.chart().createStudy("Average Directional Index");
+        // tv.chart().createStudy("Average Directional Index");
         tv.chart().createStudy("Moving Average", false, false, 5);
         tv.chart().createStudy("Moving Average", false, false, 10);
         tv.chart().createStudy("Moving Average", false, false, 20);
-        tv.chart().createStudy("Bollinger Bands");
+        // tv.chart().createStudy("Bollinger Bands");
         tv.applyOverrides({ 'timeScale.rightOffset': '2' });
         console.log(tv)
         console.log('okkkkkkkkk')
