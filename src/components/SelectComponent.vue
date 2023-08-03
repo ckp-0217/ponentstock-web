@@ -23,7 +23,7 @@
             :class="{ 'selected': internalValue === item.symbol }" @click="handleOptionClick(item.symbol)">
             <td>{{ item.symbol }}</td>
             <td>{{ item.name }}</td>
-            <td>{{ "0.00" }}</td>
+            <td>{{ item.price }}</td>
           </tr>
         </tbody>
       </table>
