@@ -15,7 +15,7 @@
           <tr>
             <th>代码</th>
             <th>名字</th>
-            <th>价格</th>
+            <th>入选时价格</th>
           </tr>
         </thead>
         <tbody>
