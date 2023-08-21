@@ -2,7 +2,7 @@
 export const intervalMap = {
   // '1min': '1',
   // '5min': '5',
-  // '15min': '15',
+  '15min': '15',
   '30min': '30',
   '60min': '60',
   // '4hour': '240',
@@ -14,7 +14,7 @@ export const intervalMap = {
 export const supported_resolutions = [
   // '1',
   // '5',
-  // '15',
+  '15',
   '30',
   '60',
   // '240',
