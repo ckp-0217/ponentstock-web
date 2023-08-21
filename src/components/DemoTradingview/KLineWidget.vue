@@ -193,6 +193,11 @@ export default {
                   // 这是定义的调色板的名称
                   // 在 'palettes' 和 'defaults.palettes' 部分
                   palette: "palette_0"
+                },
+                {
+                  id: "line_plot",
+                  type: "line", // 设置类型为线
+                  value: "lineValue" // 指定用于绘制线的值的键名
                 }],
                 palettes: {
                   palette_0: {
@@ -211,6 +216,14 @@ export default {
                 }
               },
               constructor: function () {
+                this.init = function (context, input) {
+                  this.fakeData = [
+                    4, 9, 2, 5, 8,
+                    1, 7, 6, 3, 10,
+                    7, 5, 2, 4, 8,
+                    9, 3, 1, 6, 10
+                  ]
+                };
                 this.main = function (context, input) {
                   this._context = context;
                   this._input = input;
@@ -223,8 +236,11 @@ export default {
                   var result =
                     Math.random() * 100 % 2 > 1 ? // 我们随机选择一个颜色值
                       valueForColor0 : valueForColor1;
+                  
+                  console.log(context.symbol)
+                  var lineValue = context.symbol.close/2 // 根据您的需求自定义此函数
 
-                  return [result];
+                  return [result, lineValue];
                 }
               }
             }
@@ -232,6 +248,31 @@ export default {
         },
         // timezone: "Asia/Shanghai",
       });
+      function calculateLineValue(context, input) {
+        // 您可以访问 context 和 input 来获取所需的数据
+        // 下面是一个简单示例，使用两个不同周期的简单移动平均线
+
+        // 获取输入价格数据（您可能需要调整以匹配您的数据结构）
+        var prices = input || [];
+        // console.log(prices)
+
+        // 计算两个不同周期的移动平均线
+        var maShort = movingAverage(prices, 5);
+        var maLong = movingAverage(prices, 10);
+
+        // 返回两个移动平均线的差异
+        return maShort - maLong;
+      }
+
+      // 辅助函数，计算简单移动平均线
+      function movingAverage(data, period) {
+        if (data.length < period) return 0;
+        var sum = 0;
+        for (var i = data.length - period; i < data.length; i++) {
+          sum += data[i];
+        }
+        return sum / period;
+      }
       tv.onChartReady(function () {
         tv.chart().createStudy("MACD", false, false, [10, 20, 'close', 7]);
         tv.chart().createStudy("Stochastic RSI");
@@ -239,7 +280,7 @@ export default {
         tv.chart().createStudy("Moving Average", false, false, 5);
         tv.chart().createStudy("Moving Average", false, false, 10);
         tv.chart().createStudy("Moving Average", false, false, 20);
-        tv.chart().createStudy('Bar Colorer Demo');
+        tv.chart().createStudy('Bar Colorer Demo', false, true);
         // tv.chart().createStudy("Bollinger Bands");
         tv.applyOverrides({ 'timeScale.rightOffset': '2' });
         console.log(tv)
