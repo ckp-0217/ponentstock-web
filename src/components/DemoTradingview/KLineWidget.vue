@@ -148,15 +148,98 @@ export default {
         library_path: "/charting_library/",
         locale: "zh",
         theme: "light",
+        custom_indicators_getter: function (PineJS) {
+          return Promise.resolve([
+
+            {
+              name: "Bar Colorer Demo",
+              metainfo: {
+                _metainfoVersion: 42,
+
+                id: "BarColoring@tv-basicstudies-1",
+
+                name: "BarColoring",
+                description: "Bar Colorer Demo",
+                shortDescription: "BarColoring",
+                scriptIdPart: "",
+                is_price_study: true,
+                is_hidden_study: false,
+                isCustomIndicator: true,
+
+                isTVScript: false,
+                isTVScriptStub: false,
+                defaults: {
+                  precision: 4,
+                  palettes: {
+                    palette_0: {
+                      // 调色板颜色
+                      // 将其更改为您喜欢的默认颜色，
+                      // 但请注意，用户可以在“样式”选项卡中更改它们
+                      // 指标属性
+                      colors: [
+                        { color: "#FFFF00" },
+                        { color: "#0000FF" }
+                      ]
+                    }
+                  }
+                },
+                inputs: [],
+                plots: [{
+                  id: "plot_0",
+
+                  // plot类型应设置为 'bar_colorer'
+                  type: "bar_colorer",
+
+                  // 这是定义的调色板的名称
+                  // 在 'palettes' 和 'defaults.palettes' 部分
+                  palette: "palette_0"
+                }],
+                palettes: {
+                  palette_0: {
+                    colors: [
+                      { name: "Color 0" },
+                      { name: "Color 1" }
+                    ],
+
+                    // 值之间的映射
+                    // 返回脚本和调色板颜色
+                    valToIndex: {
+                      100: 0,
+                      200: 1
+                    }
+                  }
+                }
+              },
+              constructor: function () {
+                this.main = function (context, input) {
+                  this._context = context;
+                  this._input = input;
+
+                  var valueForColor0 = 100;
+                  var valueForColor1 = 200;
+
+                  // 在这里执行计算并返回其中一个常量
+                  // 在'valToIndex'映射中指定为键
+                  var result =
+                    Math.random() * 100 % 2 > 1 ? // 我们随机选择一个颜色值
+                      valueForColor0 : valueForColor1;
+
+                  return [result];
+                }
+              }
+            }
+          ]);
+        },
         // timezone: "Asia/Shanghai",
       });
-      tv.onChartReady(function() {
-        tv.chart().createStudy("MACD",false, false,[10,20,'close',7]);
+      tv.onChartReady(function () {
+        tv.chart().createStudy("MACD", false, false, [10, 20, 'close', 7]);
         tv.chart().createStudy("Stochastic RSI");
         // tv.chart().createStudy("Average Directional Index");
         tv.chart().createStudy("Moving Average", false, false, 5);
         tv.chart().createStudy("Moving Average", false, false, 10);
         tv.chart().createStudy("Moving Average", false, false, 20);
+        tv.chart().createStudy('Bar Colorer Demo');
         // tv.chart().createStudy("Bollinger Bands");
         tv.applyOverrides({ 'timeScale.rightOffset': '2' });
         console.log(tv)
