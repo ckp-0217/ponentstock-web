@@ -116,8 +116,8 @@ export default {
           listed_exchange: symbol.value,
           // timezone: "Asia/Shanghai",
           format: "price",
-          pricescale: Math.pow(10, symbolInfo.value["price-precision"]),
-          minmov: 1,
+          pricescale: 0.1,
+          minmov: 0.01,
           volume_precision: symbolInfo.value["value-precision"],
           has_intraday: true,
           supported_resolutions: supported_resolutions,
@@ -277,12 +277,14 @@ export default {
         tv.chart().createStudy("MACD", false, false, [10, 20, 'close', 7]);
         tv.chart().createStudy("Stochastic RSI");
         // tv.chart().createStudy("Average Directional Index");
-        tv.chart().createStudy("Moving Average", false, false, 5);
-        tv.chart().createStudy("Moving Average", false, false, 10);
-        tv.chart().createStudy("Moving Average", false, false, 20);
-        tv.chart().createStudy('Bar Colorer Demo', false, true);
-        // tv.chart().createStudy("Bollinger Bands");
-        tv.applyOverrides({ 'timeScale.rightOffset': '2' });
+        // tv.chart().createStudy("Moving Average", false, false, 5);
+        // tv.chart().createStudy("Moving Average", false, false, 10);
+        // tv.chart().createStudy("Moving Average", false, false, 20);
+        // tv.chart().createStudy('Bar Colorer Demo', false, true);
+        tv.chart().createStudy("Bollinger Bands");
+        tv.chart().createStudy("Zig Zag", false, false,[3, 8]);
+
+        // tv.applyOverrides({ 'timeScale.rightOffset': '2' });
         console.log(tv)
         console.log('okkkkkkkkk')
         widget.value = tv;
